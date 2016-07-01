@@ -1,0 +1,20 @@
+- name: Create launch config
+  ec2_lc:
+    name: kamiye-launch-config
+    image_id: {{get image id from create_ami.yml}}
+    key_name: {{verify if key name is necessary}}
+    region: {{region should be a variable}}
+    security_groups: {{get security group}}
+    instance_type: t2.micro
+    assign_public_ip: yes
+
+- ec2_asg:
+    name: kamiye-asg
+    launch_config_name: kamiye-launch-config
+    health_check_period: 60
+    health_check_type: ELB
+    replace_all_instances: yes
+    min_size: 2
+    max_size: 3
+    desired_capacity: 2
+    region: {{region should be a variable}}

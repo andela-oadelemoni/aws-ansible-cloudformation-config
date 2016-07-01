@@ -1,0 +1,9 @@
+- name: Create a VPC with private and public subnet
+  cloudformation:
+    stack_name: "kamiye-ansible-cloudformation"
+    state: present
+    region: {{aws_region}}
+    template: cloudformation.template
+    tags:
+      Stack: "kamiye-ansible-cloudformation"
+  register: cloudformation
