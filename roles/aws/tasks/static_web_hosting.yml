@@ -1,0 +1,29 @@
+- name: Create S3 bucket
+  s3_bucket:
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+    name: "{{ s3_bucket_name }}"
+    policy: "{{ s3_bucket_policy | to_json }}"
+  ignore_errors: yes
+  tags:
+    - s3
+    - s3-create
+
+- name: Upload static site to S3
+  s3:
+    bucket="{{ s3_bucket_name }}"
+    object={{ item }}
+    src={{s3_website_directory}}/{{ item }}
+    mode=put 
+    permission=public-read
+  with_items:
+    - "{{s3_website_index_document}}"
+    - "{{s3_website_error_document}}"
+  tags: 
+    - s3
+    - s3-sync
+
+- name: Set S3 website config
+  command: "aws s3 website s3://{{ s3_bucket_name }}/ --index-document {{ s3_website_index_document }} --error-document {{ s3_website_error_document }}"
+  tags: 
+    - s3

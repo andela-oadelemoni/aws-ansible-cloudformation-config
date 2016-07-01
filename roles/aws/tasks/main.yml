@@ -1,0 +1,9 @@
+- include: static_web_hosting.yml
+
+# - include: create_ami.yml
+
+# - include: create_vpc.yml
+
+# - include: launch_instance.yml
+
+# - include: create_autoscaling.yml

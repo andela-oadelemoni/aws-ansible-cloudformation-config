@@ -1,0 +1,8 @@
+--- # AWS config for IaaS LO
+- hosts: localhost 
+  connection: local
+  vars_files:
+    - credentials.yml
+  roles:
+    - common
+    - aws

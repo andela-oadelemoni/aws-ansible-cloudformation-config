@@ -1,0 +1,54 @@
+- name: Check if Python is installed
+  command: bash -c "python -V 2>&1 | grep -Eo '[0-9.]{1,}'"
+  register: python_version
+  ignore_errors: True
+
+- name: Debug ansible home
+  debug: var=ansible_env.HOME
+
+- name: Debug ansible user
+  debug: var=ansible_env.USER
+
+- name: Install Python
+  debug: var=python_version
+  when: python_version|failed
+
+- name: Check if Boto is installed
+  command: python -c "import boto; print boto.Version" | grep -Eo '[0-9.]{1,}'
+  register: boto_installed
+  ignore_errors: True
+
+- debug: var=boto_installed
+
+- name: Install Boto
+  pip: name=boto state=latest
+  when: boto_installed|failed
+
+- name: Check if AWS CLI is installed
+  command: bash -c "aws --version 2>&1 | grep aws-cli*"
+  register: aws_installed
+  ignore_errors: True
+
+- name: Install AWS CLI
+  pip: name=awscli
+  when: aws_installed|failed
+
+- name: Create .aws dir under home directory for awscli config 
+  file:  
+    path={{ ansible_env.HOME }}/.aws
+    state=directory
+    owner={{ ansible_env.USER }}
+    mode=0755
+  when: aws_installed|failed
+
+- name: Copy awscli config using templates
+  template: 
+    src={{item}}.j2
+    dest={{ ansible_env.HOME}}/.aws/{{item}} 
+    owner={{ ansible_env.USER }}
+    mode=0644
+  with_items:
+    - config
+    - credentials
+  when: aws_installed|failed
+
