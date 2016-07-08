@@ -24,7 +24,7 @@
       }
     ]
   }
- s3_website_directory: "website_s3"
+ s3_website_directory: "website"
  s3_website_index_document: "index.html"
  s3_website_error_document: "error.html"
 

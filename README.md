@@ -12,12 +12,13 @@ This Ansible Playbook does the following:
 
 
 ### Steps
-1. Open vars.yml and enter the required variables for the script to run
-2. Create a credentials.yml file locally with the following content:
+1. Open `vars.yml` and enter the required variables for the script to run
+2. Create a `credentials.yml` file locally with the following content:
 ```
 aws_access_key: <enter access key>
 aws_secret_key: <enter secret key>
 ```
-3. Run aws_config.yml.
+3. To add your web folder, replace the content of website folder with your desired contents and update `s3_website_index_document` and `s3_website_error_document` in vars.yml appropriately
+4. Run `aws_config.yml`.
 
 
