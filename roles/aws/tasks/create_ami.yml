@@ -10,5 +10,3 @@
       Name: Kamiye-AMI
       Service: AWS_AMI
   register: new_ami
-
-- debug: var=new_ami

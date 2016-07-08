@@ -4,6 +4,6 @@
 
 - include: create_vpc.yml
 
-# - include: launch_instance.yml
+- include: launch_instance.yml
 
-# - include: create_autoscaling.yml
+- include: create_autoscaling.yml

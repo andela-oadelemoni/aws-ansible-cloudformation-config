@@ -1,12 +1,9 @@
 - name: Create launch config
   ec2_lc:
     name: kamiye-launch-config
-    image_id: {{get image id from create_ami.yml}}
-    key_name: {{verify if key name is necessary}}
-    region: {{region should be a variable}}
-    security_groups: {{get security group}}
+    image_id: "ami-ef20668f"
+    region: "{{aws_region}}"
     instance_type: t2.micro
-    assign_public_ip: yes
 
 - ec2_asg:
     name: kamiye-asg
@@ -17,4 +14,4 @@
     min_size: 2
     max_size: 3
     desired_capacity: 2
-    region: {{region should be a variable}}
+    region: "{{aws_region}}"
