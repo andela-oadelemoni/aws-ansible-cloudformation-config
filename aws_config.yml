@@ -3,6 +3,7 @@
   connection: local
   vars_files:
     - credentials.yml
+    - vars.yml
   roles:
     - common
     - aws
