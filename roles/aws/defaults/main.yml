@@ -32,4 +32,3 @@
 
  # Variables for creating AMI
  ami_instance_id: "i-58135ced"
-

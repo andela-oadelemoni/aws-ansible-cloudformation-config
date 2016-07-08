@@ -69,19 +69,6 @@
 				"SubnetId": {"Ref": "PublicSubnet"},
 				"RouteTableId": {"Ref": "PublicRouteTable"}
 			}
-		},
-		"PrivateInstance": {
-			"Type": "AWS::EC2::Instance",
-			"Properties": {
-				"InstanceType": "t2.micro",
-				"ImageId": "{{new_ami.image_id}}",
-				"NetworkInterfaces": [{
-					"DeviceIndex": "0",
-					"DeleteOnTermination": "true",
-					"SubnetId": {"Ref": "PrivateSubnet"}
-				}],
-				"Tags": [{"Key": "Name", "Value": "Kamiye-Private-Instance"}]
-			}
 		}
 	}
 

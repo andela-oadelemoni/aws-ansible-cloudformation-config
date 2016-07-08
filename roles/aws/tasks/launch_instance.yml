@@ -1,5 +1,8 @@
-# Get id of ami created
-# Get vpc id of vpc created by cloud formation
-# get subnet id of private subnet inside that vpc
-#{{cloudformation.stack_resources[2].physical_resource_id}}
 - name: Launch Instance Based on Created AMI
+  ec2:
+    instance_type: t2.micro
+    region: "{{aws_region}}"
+    image: "{{new_ami.image_id}}"
+    vpc_subnet_id: "{{cloudformation.stack_resources[2].physical_resource_id}}"
+    instance_tags:
+      Name: Kamiye-Private-Instance
