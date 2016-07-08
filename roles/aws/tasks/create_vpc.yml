@@ -2,7 +2,7 @@
   cloudformation:
     stack_name: "kamiye-ansible-cloudformation"
     state: present
-    region: {{aws_region}}
+    region: "{{aws_region}}"
     template: cloudformation.template
     tags:
       Stack: "kamiye-ansible-cloudformation"
