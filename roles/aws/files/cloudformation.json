@@ -1,0 +1,75 @@
+{
+	"Description": "Create a VPC with a private and public subnet",
+	"Resources": {
+		"VPC": {
+			"Type":"AWS::EC2::VPC",
+			"Properties": {
+				"EnableDnsSupport": "true",
+				"EnableDnsHostnames": "true",
+				"CidrBlock": "10.0.0.0/16",
+				"Tags": [
+					{"Key": "Application", "Value":{"Ref": "AWS::StackName"}},
+					{"Key": "Network", "Value": "Public"},
+					{"Key": "Name", "Value":"Kamiye-VPC"}
+				]
+			}
+		},
+		"PrivateSubnet": {
+			"Type": "AWS::EC2::Subnet",
+			"Properties": {
+				"VpcId": {"Ref": "VPC"},
+				"CidrBlock": "10.0.2.0/24",
+				"Tags": [
+					{"Key": "Application", "Value": {"Ref": "AWS::StackName"}},
+					{"Key": "Network", "Value": "Private"},
+					{"Key": "Name", "Value":"Kamiye-Private-Subnet"}
+				]
+			}
+		},
+		"PublicSubnet": {
+			"Type": "AWS::EC2::Subnet",
+			"Properties": {
+				"VpcId": {"Ref": "VPC"},
+				"CidrBlock": "10.0.1.0/24",
+				"Tags": [
+					{"Key": "Application", "Value":{"Ref": "AWS::StackName"}},
+					{"Key": "Network", "Value": "Public"},
+					{"Key": "Name", "Value":"Kamiye-Public-Subnet"}
+				]
+			}
+		},
+		"InternetGateway": {
+			"Type": "AWS::EC2::InternetGateway"
+		},
+		"GatewayToInternet": {
+			"Type": "AWS::EC2::VPCGatewayAttachment",
+			"Properties": {
+				"VpcId": {"Ref": "VPC"},
+				"InternetGatewayId":{"Ref":"InternetGateway"}
+			}
+		},
+		"PublicRouteTable": {
+			"Type": "AWS::EC2::RouteTable",
+			"Properties": {
+				"VpcId": {"Ref": "VPC"}
+			} 
+		},
+		"PublicRoute": {
+			"Type": "AWS::EC2::Route",
+			"DependsOn": "GatewayToInternet",
+			"Properties": {
+				"RouteTableId": {"Ref": "PublicRouteTable"},
+				"DestinationCidrBlock": "0.0.0.0/0",
+				"GatewayId": {"Ref": "InternetGateway"}
+			}
+		},
+		"PublicSubnetRouteTableAssociation": {
+			"Type": "AWS::EC2::SubnetRouteTableAssociation",
+			"Properties": {
+				"SubnetId": {"Ref": "PublicSubnet"},
+				"RouteTableId": {"Ref": "PublicRouteTable"}
+			}
+		}
+	}
+
+}
