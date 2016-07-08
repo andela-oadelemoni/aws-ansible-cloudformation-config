@@ -1,9 +1,9 @@
 - name: Create AMI 
   ec2_ami:
-    aws_access_key: {{aws_access_key}}
-    aws_secret_key: {{aws_secret_key}}
-    instance_id: {{ami_instance_id}}
-    region: {{aws_region}}
+    aws_access_key: "{{aws_access_key}}"
+    aws_secret_key: "{{aws_secret_key}}"
+    instance_id: "{{ami_instance_id}}"
+    region: "{{aws_region}}"
     wait: yes
     name: Kamiye-AMI
     tags:
@@ -11,4 +11,4 @@
       Service: AWS_AMI
   register: new_ami
 
-  - debug: var=new_ami
+- debug: var=new_ami
