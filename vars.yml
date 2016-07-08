@@ -1,7 +1,6 @@
---- # This file contains all used variables in our task file.
- #Variables added here are either confidential or should be set as environment variables
+# This file contains all used variables
+# Confidential variables should be included in your local credentials.yml file
 
- # Universal Variables for access keys and secret keys
  aws_region: us-west-1
 
  # S3 website config variables
@@ -26,7 +25,6 @@
     ]
   }
  s3_website_directory: "website_s3"
-  
  s3_website_index_document: "index.html"
  s3_website_error_document: "error.html"
 
