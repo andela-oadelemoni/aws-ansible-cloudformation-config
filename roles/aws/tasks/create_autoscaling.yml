@@ -1,7 +1,7 @@
 - name: Create launch config
   ec2_lc:
     name: kamiye-launch-config
-    image_id: "ami-ef20668f"
+    image_id: "{{new_ami.image_id}}"
     region: "{{aws_region}}"
     instance_type: t2.micro
 

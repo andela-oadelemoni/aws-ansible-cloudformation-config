@@ -29,4 +29,4 @@
  s3_website_error_document: "error.html"
 
  # Variables for creating AMI
- ami_instance_id: "i-58135ced"
+ ami_instance_id: "i-de4dd49b"
